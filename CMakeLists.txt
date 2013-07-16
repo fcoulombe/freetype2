@@ -86,8 +86,11 @@ set(BASE_SRCS
     src/psaux/psaux.c
     src/psnames/psmodule.c)
 
+IF (${BUILD_SHARED_LIBS})
 	ADD_LIBRARY(freetype SHARED ${BASE_SRCS} )
-
+ELSE()
+    ADD_LIBRARY(freetype STATIC ${BASE_SRCS} )
+ENDIF()
 # Tests and other stuff
 	CHECK_INCLUDE_FILE(sys/wait.h HAVE_WAIT_H)
 
