@@ -91,23 +91,29 @@ IF (${BUILD_SHARED_LIBS})
 ELSE()
     ADD_LIBRARY(freetype STATIC ${BASE_SRCS} )
 ENDIF()
+
+IF(${WIN32})
+    SET(DET_LIBS freetype m)
+ELSE()
+    SET(DET_LIBS freetype m)
+ENDIF()
 # Tests and other stuff
 	CHECK_INCLUDE_FILE(sys/wait.h HAVE_WAIT_H)
 
 	IF(HAVE_WAIT_H)
 		ADD_EXECUTABLE(ftrandom src/tools/ftrandom/ftrandom.c)
-		TARGET_LINK_LIBRARIES(ftrandom freetype m)		# todo:  m
+		TARGET_LINK_LIBRARIES(ftrandom ${DET_LIBS})		# todo:  m
 		INSTALL(TARGETS ftrandom DESTINATION  ${INSTALL_EXAMPLE} COMPONENT Example)
 	ENDIF()
 
 	ADD_EXECUTABLE(test_afm src/tools/test_afm.c)
-	TARGET_LINK_LIBRARIES(test_afm freetype m)
+	TARGET_LINK_LIBRARIES(test_afm ${DET_LIBS})
 
 	ADD_EXECUTABLE(test_bbox src/tools/test_bbox.c)
-	TARGET_LINK_LIBRARIES(test_bbox freetype m)
+	TARGET_LINK_LIBRARIES(test_bbox ${DET_LIBS})
 
 	ADD_EXECUTABLE(test_trig src/tools/test_trig.c)
-	TARGET_LINK_LIBRARIES(test_trig freetype m)
+	TARGET_LINK_LIBRARIES(test_trig ${DET_LIBS})
 
 	INSTALL(TARGETS test_afm test_bbox test_trig RUNTIME DESTINATION  ${INSTALL_EXAMPLE} COMPONENT Example)
 
