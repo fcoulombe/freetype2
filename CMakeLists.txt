@@ -93,7 +93,7 @@ ELSE()
 ENDIF()
 
 IF(${WIN32})
-    SET(DET_LIBS freetype m)
+    SET(DET_LIBS freetype)
 ELSE()
     SET(DET_LIBS freetype m)
 ENDIF()
